@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\JGB\\Desktop\\Programming\\Project\\API Practice\\APIPractice1\\APIPractice1.csproj": {}
+    "C:\\Users\\JGB\\Desktop\\Programming\\Project\\API-Practices\\APIPractice1\\APIPractice1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\JGB\\Desktop\\Programming\\Project\\API Practice\\APIPractice1\\APIPractice1.csproj": {
+    "C:\\Users\\JGB\\Desktop\\Programming\\Project\\API-Practices\\APIPractice1\\APIPractice1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\JGB\\Desktop\\Programming\\Project\\API Practice\\APIPractice1\\APIPractice1.csproj",
+        "projectUniqueName": "C:\\Users\\JGB\\Desktop\\Programming\\Project\\API-Practices\\APIPractice1\\APIPractice1.csproj",
         "projectName": "APIPractice1",
-        "projectPath": "C:\\Users\\JGB\\Desktop\\Programming\\Project\\API Practice\\APIPractice1\\APIPractice1.csproj",
+        "projectPath": "C:\\Users\\JGB\\Desktop\\Programming\\Project\\API-Practices\\APIPractice1\\APIPractice1.csproj",
         "packagesPath": "C:\\Users\\JGB\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\JGB\\Desktop\\Programming\\Project\\API Practice\\APIPractice1\\obj\\",
+        "outputPath": "C:\\Users\\JGB\\Desktop\\Programming\\Project\\API-Practices\\APIPractice1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -58,6 +58,20 @@
               "noWarn": [
                 "NU1605"
               ]
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

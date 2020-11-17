@@ -11,6 +11,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.SqlServer;
+using APIPractice1.Data;
+
 
 namespace APIPractice1
 {
@@ -26,6 +31,8 @@ namespace APIPractice1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ToDoContext>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("ToDoDB")));
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
