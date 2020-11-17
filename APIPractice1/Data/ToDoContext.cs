@@ -13,6 +13,5 @@ namespace APIPractice1.Data
         public ToDoContext(DbContextOptions<ToDoContext> opt) : base(opt)
         {
         }     
-        //METHOD
     }
 }

@@ -15,9 +15,6 @@ namespace Controllers
     {
         private readonly IToDoUserAccountRepo _repository;
         private readonly IMapper _mapper;
-
-
-        //PROP
         //CTOR
         public ToDoUserAccountController(IToDoUserAccountRepo repository, IMapper mapper)
         {
