@@ -14,7 +14,14 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.SqlServer;
+
+
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Microsoft.AspNetCore.JsonPatch;
+using Newtonsoft.Json.Serialization;
+
 using APIPractice1.Data;
+using AutoMapper;
 
 
 namespace APIPractice1
@@ -31,8 +38,21 @@ namespace APIPractice1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Inject DbContext
             services.AddDbContext<ToDoContext>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("ToDoDB")));
 
+            // Inject AutoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // Inject Json patch
+            services.AddControllers().AddNewtonsoftJson(s=> {
+                s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
+
+            //DI repo
+            services.AddScoped<IToDoUserAccountRepo, ToDoUserAccountRepo>();
+
+            
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
