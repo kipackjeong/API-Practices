@@ -1,11 +1,14 @@
 using APIPractice2.Data;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.JsonPatch;
+
 using System.Collections.Generic;
 using APIPractice2.Model;
 using APIPractice2.Dto;
 using System.Collections;
 using System;
+
 
 namespace Controllers
 {
@@ -68,6 +71,76 @@ namespace Controllers
         var customerReadDto = _mapper.Map<CustomerReadDto>(customerToCreate);
         return CreatedAtRoute(nameof(GetCustomerById), new {id = customerToCreate}, customerReadDto); // 201 Created 
     }
+
+    [HttpPut("{id}")]
+    public ActionResult PutCustomer(int id ,CustomerUpdateDto customerUpdateDto)
+    {
+        // bring model from repo
+        var customerFromRepo = _repo.GetCustomerById(id);
+        if(customerFromRepo == null)
+        {
+            return NotFound(); // 404
+        }
+        // map
+        _mapper.Map(customerUpdateDto, customerFromRepo);
+
+        // update to repo
+        _repo.UpdateCustomer(customerFromRepo);
+        _repo.SaveChanges();
+
+        return NoContent();
+    }    
+
+    //PATCH
+
+    [HttpPatch("{id}")]
+    public ActionResult PatchCustomer(JsonPatchDocument<CustomerUpdateDto> jsonDocument, int id)
+    {
+        // bring model from repo
+        var customerFromRepo = _repo.GetCustomerById(id);
+        if(customerFromRepo == null)
+        {
+            return NotFound();  // 404
+        }
+        // customerFromRepo -> customerUpdateDto
+        var customerUpdateRepo = _mapper.Map<CustomerUpdateDto>(customerFromRepo);
+
+        // apply json doc -> customerUpdate Dto
+        jsonDocument.ApplyTo(customerUpdateRepo);
+        if(!TryValidateModel(customerUpdateRepo))
+        {
+            return ValidationProblem(ModelState);
+        }
+
+        // customerUpdate -> Model repo
+        _mapper.Map(customerUpdateRepo, customerFromRepo);
+        
+        // repo update, save
+        _repo.UpdateCustomer(customerFromRepo);
+        _repo.SaveChanges();
+
+        // return
+        return NoContent(); // 
+    }
+
+    [HttpDelete("{id}")]
+    public ActionResult DeleteCustomer(int id)
+    {
+        // bring model from repo
+        var customerFromRepo = _repo.GetCustomerById(id);
+        if(customerFromRepo == null)
+        {
+            return NotFound(); //404
+        }
+
+        _repo.DeleteCustomer(customerFromRepo);
+        _repo.SaveChanges();
+        
+        return NoContent();
+    } 
+
+
+
 
 
 

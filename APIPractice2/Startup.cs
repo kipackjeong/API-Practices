@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,6 +16,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using APIPractice2.Data;
 using AutoMapper;
+using Newtonsoft.Json.Serialization;
 
 namespace APIPractice2
 {
@@ -37,6 +40,12 @@ namespace APIPractice2
 
             // automapper inject
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // json patch inject
+            services.AddControllers().AddNewtonsoftJson(s=>{
+                s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
